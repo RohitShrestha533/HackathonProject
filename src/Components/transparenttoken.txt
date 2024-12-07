@@ -1,0 +1,107 @@
+import React, { useState, useEffect } from "react";
+import Web3 from "web3";
+import { Table } from "react-bootstrap";
+
+const TokenTransactions = () => {
+  const [transactions, setTransactions] = useState([]);
+
+  const tokenAddress = "0x06BcB1800B1575ffa48DeFaeE3510333B282Db73"; // Token contract address
+  const etherscanApiKey = "YOUR_ETHERSCAN_API_KEY"; // Replace with your Etherscan API key
+
+  // Define wallet roles
+  const walletRoles = {
+    "0xdb9be34fb2c03102f36cd3f647fb2c1c9db3cc6f": "Central",
+    "0x62a900ef7834b4d02e3ff730a93857f94a70c817": "Province 1",
+    "0xb13a0a95c4bb2852748f260e42197804201fe3cd": "Province 2",
+  };
+
+  // Define subject (hardcoded for now)
+  const subject = "Education";
+
+  // Fetch transactions and map roles
+  const fetchTokenTransactions = async () => {
+    const apiUrl = `https://api-testnet.bscscan.com/api?module=account&action=tokentx&contractaddress=${tokenAddress}&startblock=0&endblock=99999999&sort=asc&apikey=${etherscanApiKey}`;
+
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      if (data.status === "1") {
+        const transactionsWithRoles = data.result.map((tx) => ({
+          ...tx,
+          fromRole: walletRoles[tx.from.toLowerCase()] || "Unknown",
+          toRole: walletRoles[tx.to.toLowerCase()] || "Unknown",
+        }));
+        setTransactions(transactionsWithRoles);
+      } else {
+        console.error("No token transactions found.");
+      }
+    } catch (error) {
+      console.error("Error fetching token transactions:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTokenTransactions();
+  }, []);
+
+  return (
+    <div
+      style={{
+        textAlign: "center",
+        padding: "20px 0",
+        height: "auto",
+        margin: "50px 0",
+      }}
+    >
+      <h3 style={{ color: "white" }}>Transaction in NPR</h3>
+      <Table
+        bordered
+        responsive
+        variant="dark"
+        className="text-white"
+        style={{
+          width: "75%",
+          margin: "0 auto",
+          border: "1px solid white",
+          backgroundColor: "transparent",
+          color: "white",
+          borderCollapse: "collapse",
+          borderSpacing: "0",
+          padding: "20px",
+        }}
+      >
+        <thead>
+          <tr>
+            <th>Hash</th>
+            <th>From (Role)</th>
+            <th>To (Role)</th>
+            <th>Subject</th>
+            <th>Amount (in NPR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {transactions.map((tx) => (
+            <tr key={tx.hash}>
+              <td>
+                <a
+                  href={`https://testnet.bscscan.com/tx/${tx.hash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none", color: "#1E90FF" }}
+                >
+                  {tx.hash.slice(0, 10)}...
+                </a>
+              </td>
+              <td>{tx.fromRole}</td>
+              <td>{tx.toRole}</td>
+              <td>{subject}</td>
+              <td>{Web3.utils.fromWei(tx.value, "ether")} NPRX</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
+  );
+};
+
+export default TokenTransactions;

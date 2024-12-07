@@ -1,0 +1,219 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #000428, #010202);
+}
+/* background: linear-gradient(135deg, #000428, #004e92); */
+
+h2,
+h3,
+p {
+  color: aliceblue;
+}
+/* landing page style*/
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  text-align: center;
+  z-index: 1;
+}
+
+.content h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.content div {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.get-started-button {
+  background-color: #1d63e5;
+
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.get-started-button:hover {
+  background-color: blue;
+}
+
+.background-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+/* Base styles */
+.coin,
+.star,
+.planet {
+  position: absolute;
+  border-radius: 50%;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Coin styles */
+.coin {
+  background: radial-gradient(circle, #f39c12, #d35400);
+  animation: grow 3s infinite;
+}
+
+.coin1 {
+  width: 50px;
+  height: 50px;
+  top: 20%;
+  left: 10%;
+}
+
+.coin2 {
+  width: 30px;
+  height: 30px;
+  bottom: 15%;
+  left: 40%;
+}
+
+.coin3 {
+  width: 40px;
+  height: 40px;
+  top: 10%;
+  right: 20%;
+}
+
+/* Star styles */
+.star {
+  background: white;
+  animation: grow 4s infinite;
+}
+
+.star1 {
+  width: 10px;
+  height: 10px;
+  top: 30%;
+  right: 10%;
+}
+
+.star2 {
+  width: 7px;
+  height: 7px;
+  bottom: 20%;
+  left: 25%;
+}
+
+/* Planet styles */
+.planet {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #8e44ad, #9b59b6);
+  top: 50%;
+  right: 15%;
+  animation: grow 5s infinite;
+}
+
+/* Animation Keyframes */
+@keyframes grow {
+  0%,
+  100% {
+    transform: scale(1); /* Original size */
+  }
+  50% {
+    transform: scale(1.5); /* Slightly larger */
+  }
+}
+
+/* Section 1: How It Works */
+.how-it-works {
+  padding: 60px 0;
+}
+
+.section h2,
+p {
+  color: white;
+}
+
+.how-it-works h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.how-it-works p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.learn-more-btn {
+  background-color: #008cba;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+
+.learn-more-btn:hover {
+  background-color: #45a049;
+}
+
+/* Placeholder for graphic in Section 1 */
+.abstract-graphic {
+  width: 100%;
+  height: 300px;
+  background: url("./images/tech\ 2.png") no-repeat center;
+  background-size: contain;
+}
+
+/* Section 2: Financial Transparency */
+.financial-transparency {
+  padding: 60px 0;
+}
+
+.financial-transparency h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.financial-transparency p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.get-started-btn {
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  background-color: #008cba;
+}
+
+.get-started-btn:hover {
+  background-color: #45a049;
+  color: #0d0d0d;
+}
+
+/* Placeholder for graphic in Section 2 */
+.shield-graphic {
+  width: 100%;
+  height: 300px;
+  background: url("./images/supportside.png") no-repeat center;
+  background-size: contain;
+}

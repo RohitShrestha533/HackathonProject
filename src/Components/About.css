@@ -1,0 +1,90 @@
+.aboutmain {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background: url("../images/aboutbgpng.png") no-repeat;
+  background-size: cover;
+  padding-top: 80px; /* Add padding to compensate for the fixed navbar */
+}
+
+.aboutcontainer {
+  padding: 40px 50px;
+  width: 600px;
+  margin-top: 20px; /* Adjust margin for better spacing */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5); /* Subtle background for contrast */
+}
+
+.aboutcontainer h1 {
+  text-align: center;
+}
+
+.abouttitle {
+  font-size: 2.5em;
+  margin-bottom: 20px; /* Slightly larger and more spacing for better emphasis */
+}
+
+.aboutdescription {
+  font-size: 1.2em;
+  line-height: 1.6; /* Improved readability */
+  text-align: center;
+}
+
+.about-section {
+  padding: 60px 20px; /* Adjust padding for better responsiveness */
+  color: white;
+}
+
+.about-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 8px solid white;
+  border-radius: 12px;
+  padding: 20px;
+  height: 100%;
+  background: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ) !important; /* Ensure semi-transparent background */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: white; /* Ensure text remains visible on semi-transparent background */
+}
+
+.about-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 16px 20px rgba(230, 227, 227, 0.2);
+}
+
+.about-icon {
+  font-size: 3rem;
+  padding: 10px;
+  width: 100px;
+  height: 100px;
+  border: 3px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.about-button {
+  color: rgb(0, 0, 0);
+  border: 1px solid white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 30px;
+  background-color: #008cba;
+  transition: all 0.3s ease;
+}
+
+.about-button:hover {
+  color: #0d0d0d;
+  background-color: #45a049;
+}

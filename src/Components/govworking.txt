@@ -1,0 +1,181 @@
+import React, { useState, useEffect } from "react";
+import Web3 from "web3";
+
+// Contract Address and ABI
+const contractAddress = "0x06BcB1800B1575ffa48DeFaeE3510333B282Db73";
+const abi = [
+  {
+    inputs: [],
+    stateMutability: "view",
+    type: "function",
+    name: "central",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+  },
+  {
+    inputs: [],
+    stateMutability: "view",
+    type: "function",
+    name: "province1",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+  },
+  {
+    inputs: [],
+    stateMutability: "view",
+    type: "function",
+    name: "province2",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+  },
+  {
+    inputs: [],
+    stateMutability: "view",
+    type: "function",
+    name: "muncipalities",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "to", type: "address" },
+      { internalType: "uint256", name: "value", type: "uint256" },
+    ],
+    name: "transfer",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+];
+
+const Gov = () => {
+  const [account, setAccount] = useState(null);
+  const [balance, setBalance] = useState(null);
+  const [role, setRole] = useState("");
+  const [recipient, setRecipient] = useState("");
+  const [amount, setAmount] = useState("");
+
+  const connectWallet = async () => {
+    if (window.ethereum) {
+      try {
+        const web3 = new Web3(window.ethereum);
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        const accounts = await web3.eth.getAccounts();
+        const accountBalance = await web3.eth.getBalance(accounts[0]);
+
+        const walletAddress = accounts[0];
+        const walletBalance = web3.utils.fromWei(accountBalance, "ether");
+
+        setAccount(walletAddress);
+        setBalance(walletBalance);
+      } catch (error) {
+        console.error("Error connecting to wallet:", error);
+      }
+    } else {
+      alert(
+        "MetaMask is not installed. Please install MetaMask to use this feature."
+      );
+    }
+  };
+
+  const getRole = async () => {
+    try {
+      const web3 = new Web3(window.ethereum);
+      const contract = new web3.eth.Contract(abi, contractAddress);
+
+      const centralAddress = await contract.methods.central().call();
+      if (centralAddress.toLowerCase() === account.toLowerCase()) {
+        setRole("Insider");
+      } else {
+        setRole("User");
+      }
+    } catch (error) {
+      console.error("Error fetching role:", error);
+    }
+  };
+
+  const transferTokens = async () => {
+    if (!recipient || !amount) {
+      alert("Please enter recipient address and amount.");
+      return;
+    }
+
+    try {
+      const web3 = new Web3(window.ethereum);
+      const contract = new web3.eth.Contract(abi, contractAddress);
+
+      const valueInWei = web3.utils.toWei(amount.toString(), "ether");
+
+      const receipt = await contract.methods
+        .transfer(recipient, valueInWei)
+        .send({
+          from: account,
+          gas: 200000,
+        });
+
+      console.log("Transaction successful:", receipt);
+      alert("Tokens transferred successfully!");
+    } catch (error) {
+      console.error("Error transferring tokens:", error);
+      alert("Transaction failed.");
+    }
+  };
+
+  useEffect(() => {
+    // Auto-connect wallet if previously connected
+    if (window.ethereum) {
+      connectWallet();
+    }
+  }, []);
+
+  return (
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      <h1>Smart Contract Interaction</h1>
+      {!account ? (
+        <button
+          onClick={connectWallet}
+          style={{ padding: "10px", fontSize: "16px" }}
+        >
+          Connect Wallet
+        </button>
+      ) : (
+        <div>
+          <p>
+            <strong>Connected Account:</strong> {account}
+          </p>
+          <p>
+            <strong>Balance:</strong> {balance} BNB
+          </p>
+          <button
+            onClick={getRole}
+            style={{ margin: "10px 0", padding: "10px", fontSize: "16px" }}
+          >
+            Get Role
+          </button>
+          <p>
+            <strong>Your Role:</strong> {role}
+          </p>
+          <h3>Transfer Tokens</h3>
+          <input
+            type="text"
+            placeholder="Recipient Address"
+            value={recipient}
+            onChange={(e) => setRecipient(e.target.value)}
+            style={{ padding: "10px", width: "100%", marginBottom: "10px" }}
+          />
+          <input
+            type="number"
+            placeholder="Amount in BNB"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            style={{ padding: "10px", width: "100%", marginBottom: "10px" }}
+          />
+          <button
+            onClick={transferTokens}
+            style={{ padding: "10px", fontSize: "16px" }}
+          >
+            Transfer
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Gov;

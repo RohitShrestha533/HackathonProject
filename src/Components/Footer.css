@@ -1,0 +1,73 @@
+.footer {
+  display: flex;
+  padding: 40px;
+  background: linear-gradient(
+    145deg,
+    rgba(15, 32, 39, 0.5),
+    rgba(32, 58, 67, 0.5),
+    rgba(44, 83, 100, 0.5)
+  );
+  color: gray;
+}
+.footer p {
+  color: gray;
+}
+.footer-left {
+  max-width: 400px;
+}
+
+.footer-left h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.footer-left p {
+  margin: 10px 0;
+}
+
+.email-signup {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.email-signup input {
+  padding: 10px;
+  background-color: transparent;
+  color: white;
+  text-decoration-color: gray;
+  border-right: none;
+  border: 1px 0 1px 1px solid #cccccc;
+  border-radius: 4px 0 0 4px;
+  flex: 0.8;
+}
+.email-signup input:focus {
+  background: transparent;
+  color: #fff;
+}
+.email-signup input::placeholder {
+  color: #ffffff; /* Change to your desired color */
+  opacity: 1; /* Optional: ensure the placeholder is fully opaque */
+}
+.email-signup button {
+  padding: 10px 20px;
+  border: 1px solid #cccccc;
+  border-left: none;
+  background: transparent;
+  color: #fff;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: row;
+}
+
+.footer-links {
+  display: flex;
+}
+.footer-links p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}

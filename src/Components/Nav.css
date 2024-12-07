@@ -1,0 +1,25 @@
+/* navbar style*/
+.custom-navbar {
+  background: linear-gradient(135deg, #000428, #010202);
+}
+
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-link,
+.custom-navbar .btn {
+  color: white !important;
+}
+
+.custom-navbar .btn {
+  background-color: #008cba;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+}
+
+.custom-navbar .btn:hover {
+  background-color: #45a049;
+}
+
+.nav-links {
+  gap: 2.5rem; /* Adjust the gap value as needed */
+}
